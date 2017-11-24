@@ -115,7 +115,7 @@ func Eliza(w http.ResponseWriter, r *http.Request){
 	likeResponse := Response{re, answers} // reads from file.
 
 	//------------------------------------------------------------------------------
-	// swaps can be found  https://www.smallsurething.com/implementing-the-famous-eliza-chatbot-in-python/
+	
 	reflectionMap := map[string]string{
 		"time": t.Format("4:04PM"),
 		"I": "you",
