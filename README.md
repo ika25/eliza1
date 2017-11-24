@@ -7,7 +7,7 @@ In this project I have created a chatbot web application in Go. Users will be ab
 
 # How to run Web App
 
-1)cd- where eliza project is
+1)cd- where eliza project file is
 
 2)go run main.go
 
