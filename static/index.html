@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- start: HEAD -->
+<head>
+	<title>Eliza ChatBot</title>
+	<!-- start: META -->
+	<!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<!-- end: META -->
+	
+	<!-- start: MAIN CSS -->
+	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
+	<!-- end: MAIN CSS -->
+	
+	<!-- start: CT CSS -->
+	<link rel="stylesheet" href="assets/css/styles.css">
+	<link rel="stylesheet" href="assets/css/plugins.css">
+	<link rel="stylesheet" href="assets/css/theme.css" id="skin_color" />
+	<!-- end: CT CSS -->
+</head>
+<!-- end: HEAD -->
+<body>
+<div class="app-content">
+	<div class="main-content" >
+		<div class="wrap-content container" id="container">			
+			<div class="container-fluid container-fullw">
+			    <div class="row">
+					<div class="col-md-8">
+						<h2>Eliza</h2>
+						<p>Chat Bot</p>
+					</div>
+				</div>
+				
+			    <div class="row">
+					<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+					   <div class="panel panel-white no-radius">
+							<div class="panel-heading border-bottom">
+								<h4 class="panel-title">Chat Box</h4>
+							</div>
+							<div class="panel-body no-padding">
+								<div id="chat_div" class="panel-scroll perfect-scrollbar" id="chatBox" style="height:500px !important; overflow-y: auto !important;">
+									<ol id="chat_history" class="discussion">
+									</ol>
+								</div>
+							</div>
+							
+							<div class="message-bar">
+								<div class="message-inner">
+									<a class="link icon-only" href="#"><i class="fa fa-send"></i></a>
+									<div class="message-area">
+										<input type="text" id="message" name="message" placeholder="Input your message in here"/>
+									</div>
+									<a id="send_button" class="link" href="#">
+										Send
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		
+	<!-- start: MAIN JAVASCRIPTS -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/jquery/jquery.form.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!-- end: MAIN JAVASCRIPTS -->
+	
+	<!-- start: JavaScript Event Handlers for this page -->
+	<script>
+		jQuery(document).ready(function() {
+			$('#send_button').click(function(){
+				send_msg();
+			});
+
+			$('#message').keyup(function(e){
+			    if(e.keyCode == 13)
+			    {
+			    	send_msg();
+			    }
+			});
+		});
+
+		function send_msg(){
+			var myMsg = $.trim($('#message').val());
+			if (myMsg == '') return false;
+
+			$.get('/Eliza', {value: myMsg})
+            .done(function (data){
+				appendMyMessage(myMsg);
+				appendBotMessage(data);
+			});			
+						
+			$('#message').val('');	
+		}
+
+		function appendMyMessage(message){
+			var myMsg = '';
+			myMsg += '<li class="other">';
+			myMsg += '<div class="message">';
+			myMsg += '<div class="message-name">Me</div>';
+			myMsg += '<div class="message-text">' + message + '</div>';
+			myMsg += '<div class="message-avatar"><img src="assets/images/me.jpg" alt=""></div>';
+			myMsg += '</div></li>';
+			
+			$('#chat_history').append(myMsg);
+		}
+
+		function appendBotMessage(message){
+			var botMsg = '';
+			botMsg += '<li class="self">';
+			botMsg += '<div class="message">';
+			botMsg += '<div class="message-name">Eliza</div>';
+			botMsg += '<div class="message-text">' + message + '</div>';
+			botMsg += '<div class="message-avatar"><img src="assets/images/bot.jpg" alt=""></div>';
+			botMsg += '</div></li>';
+			
+			$('#chat_history').append(botMsg);
+
+			$("#chat_div").animate({
+		        scrollTop: $('#chat_history').height()
+		    }, 300);
+		}
+	</script>
+	<!-- end: JavaScript Event Handlers for this page -->
+</body>
+</html>
