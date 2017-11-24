@@ -2,7 +2,10 @@
 This is Data Representation and Querying Project for chat bot called Eliza.
 In this project I have created a chatbot web application in Go. Users will be able to visit the web application through their browser, type in sentences such as "hi how are you” and web app answering back to you.
 
-How to run Web App
+
+
+
+# How to run Web App
 
 1)cd- where eliza project is
 
@@ -11,7 +14,9 @@ How to run Web App
 3)visit http://localhost:8088/ in your web browser
 
 
-resource that i used to complete this project 
+
+
+# resource that i used to complete this project 
 
 https://www.smallsurething.com/implementing-the-famous-eliza-chatbot-in-python/
 
